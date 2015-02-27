@@ -40,14 +40,20 @@ $(document).ready(function(){
     $("#tasks").hide();
   };
 
-  var addToList = function(todo){
-    $("#todo-list").append("<li>" + todo.description + "</li>");
+  var hideCompleted = function() {
+    $("#completed-list-div").hide();
   };
+
+  var addToList = function(todo){
+    $("#todo-list").append("<li id='" + todo.id + "'>" + todo.description + "</li>");
+  };
+
 
 
   hideSignUp();
   hideTodos();
   hideTasks();
+  hideCompleted();
 
   $("#sign-in").submit(function(event){
     event.preventDefault();
@@ -115,7 +121,7 @@ $(document).ready(function(){
     $("#tasks").show();
   });
 
-   $("#add-task").click(function(event){
+  $("#add-task").click(function(event){
     event.preventDefault();
     var description = document.getElementById("task").value
     $.ajax({
@@ -129,7 +135,16 @@ $(document).ready(function(){
         hideTasks();
       }
     });
+  });
 
+  // $(document).on('dblclick', '#todo-list li', function() {
+  //   var editButton = $("<input id='todo-edit' type='submit' value='Edit'/>")
+  //   $(this).append(editButton);
+  // });
+  
+ $(function() {
+    $( "#todo-list" ).sortable();
+    $( "#todo-list" ).disableSelection();
   });
 
   $("#sign-out-button").click(function(event){
@@ -147,20 +162,6 @@ $(document).ready(function(){
 
 
 
-//   var getTodos = function(){
-//     $.ajax({
-//       url: "http://recruiting-api.nextcapital.com/users/" + sessionStorage.userId + "/todos.json?api_token=" + sessionStorage.token,
-//       type: "GET",
-//       success: function(data) {
-//         for (i = 0; i < data.length; i++) {
-//           var todo = new Todo(data[i]);
-//           // if (todo.isComplete !== true) {
-//             addToList(todo);
-//           // }
-//         }
-//       }
-//     });
-//   };
 
 
 
