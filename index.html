@@ -5,45 +5,56 @@
       <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
       <script type="text/javascript" src="js/jquery-ui-1.11.3.min.js"></script>  
       <script src="js/todo.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <link href="css/bootstrap.css" rel="stylesheet">
+      <link href="css/jumbotron-narrow.css" rel="stylesheet">
+      <link href="css/main.css" rel="stylesheet">
   </head>
 
   <body>
-    <div id="container">
-      <h1>Todo</h1>
-      <div id="sign-in">
-        <form id="sign-in-form">
-          <input id="sign-in-email" type="text" name="email" placeholder="Email">
-          <input id="sign-in-password" type="password" name="password" placeholder="Password">
-          <input id="sign-in-button" type="submit" value="Sign In">
-        </form>
-        <br>
-        <p id="new-to-site"><a href="">Need to sign up?</a></p>
-      </div>
+    <div class="container">
+      <div class="jumbotron">
 
-      <div id="sign-up">
-        <form id="sign-up-form">
-          <input id="sign-up-email" type="text" name="email" placeholder="Email">
-          <input id="sign-up-password" type="password" name="password" placeholder="Password">
-          <input id="sign-up-button" type="submit" value="Sign Up">
-        </form>
-      </div>
+        <div class="header">
 
-      <div id="todos">
-        <input id="sign-out-button" type="submit" value="Sign Out">
-        <h1>My Todo List</h1>
-        <input id="new-task" type="submit" value="New Task">
-        <form id="tasks">
-          <input id="task" type="text" name="task">
-          <input id="add-task" type="submit" value="Add Task">
-        </form>
-        
-        <div id="todo-list-div">
-          <ul id="todo-list" class="list"></ul>
+          <h1>Todo</h1>
+          <input class="nav nav-pills pull-right" id="sign-out-button" type="submit" value="Sign Out">
+          <div id="sign-in">
+            <form id="sign-in-form">
+              <input id="sign-in-email" type="text" name="email" placeholder="Email">
+              <input id="sign-in-password" type="password" name="password" placeholder="Password">
+              <input id="sign-in-button" type="submit" value="Sign In">
+            </form>
+            <br>
+            <p id="new-to-site"><a href="">Need to sign up?</a></p>
+            
+         
+          </div>
+        </div>
+      
+
+        <div id="sign-up">
+          <form id="sign-up-form">
+            <input id="sign-up-email" type="text" name="email" placeholder="Email">
+            <input id="sign-up-password" type="password" name="password" placeholder="Password">
+            <input id="sign-up-button" type="submit" value="Sign Up">
+          </form>
         </div>
 
-        <div id="completed-list-div">
-          <h2>I'm all done with these!</h2>
-          <ul id="completed-list"></ul>
+        <div id="todos">
+
+          <form id="tasks">
+            <input id="add-task" type="text" name="new-task" placeholder="Add a new task...">
+          </form>
+          
+          <div id="todo-list-div">
+            <ul id="todo-list" class="list"></ul>
+          </div>
+
+          <div id="completed-list-div">
+            <h2>I'm all done with these!</h2>
+            <ul id="completed-list" class="list"></ul>
+          </div>
         </div>
       </div>
 

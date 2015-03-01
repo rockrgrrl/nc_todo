@@ -11,8 +11,11 @@ $(document).ready(function(){
     sessionStorage.setItem("token", data.api_token);
     hideSignIn();
     hideSignUp();
+    showSignOut();
     showTodos();
-    getTodos();
+    getTodos()
+    showTasks();
+    showCompleted();
   };
 
   var hideSignIn = function(){
@@ -21,6 +24,14 @@ $(document).ready(function(){
 
   var hideSignUp = function(){
     $("#sign-up").hide();
+  };
+
+  var hideSignOut = function(){
+    $("#sign-out-button").hide();
+  };
+
+  var showSignOut = function(){
+    $("#sign-out-button").show();
   };
 
   var hideTodos = function(){
@@ -40,17 +51,28 @@ $(document).ready(function(){
     $("#tasks").hide();
   };
 
+  var showTasks = function(){
+    $("#tasks").show();
+  }
+
   var hideCompleted = function() {
     $("#completed-list-div").hide();
   };
 
-  var addToList = function(todo){
-    $("#todo-list").append("<li id='" + todo.id + "'>" + todo.description + "</li>");
+  var showCompleted = function() {
+    $("#completed-list-div").show();
   };
 
+  var addToList = function(todo){
+    $("#todo-list").append("<li id='" + todo.id + "'>" + todo.description + "<span class='glyphicon glyphicon-ok'></span><span class='glyphicon glyphicon-edit'></span></li>");
+  };
 
+  var addToCompleted = function(todo){
+    $("#completed-list").append("<li id='" + todo.id + "'>" + todo.description + "</li>");
+  };
 
   hideSignUp();
+  hideSignOut();
   hideTodos();
   hideTasks();
   hideCompleted();
@@ -78,7 +100,7 @@ $(document).ready(function(){
 
   $("#new-to-site").click(function(event){
     event.preventDefault();
-      $("#sign-up").show();
+      $("#sign-up").toggle();
   });
 
   $("#sign-up").submit(function(event){
@@ -108,67 +130,78 @@ $(document).ready(function(){
         success: function(data) {
           for (i = 0; i < data.length; i++) {
             var todo = new Todo(data[i]);
-            if (todo.isComplete !== true) {
+            if (todo.isComplete === false) {
               addToList(todo);
             }
+            else
+              addToCompleted(todo);
           }
         }
       });
     };
 
-  $("#new-task").click(function(event){
+  $("#tasks").submit(function(event){
     event.preventDefault();
-    $("#tasks").show();
+    var description = $("#tasks input[name=new-task]").val()
+    if (description != "") {
+      $.ajax({
+        url: "http://recruiting-api.nextcapital.com/users/" + sessionStorage.userId + "/todos",
+        type: "POST",
+        dataType: "json",
+        data: { api_token: sessionStorage.token, todo: { description: description } },
+        success: function(todo) {
+          addToList(todo);
+          emptyInput(todo);
+        }
+      });
+    }
   });
 
-  $("#add-task").click(function(event){
-    event.preventDefault();
-    var description = document.getElementById("task").value
+  $(document).on("click", ".glyphicon-edit", function(){
+    var currentText = $(this).parent().text();
+    var editForm = ("<form id='edit-form'><input id='edit-description' type='text' value=" + currentText + "></form>");
+    var updatedTodo = $(this).parent().replaceWith(editForm).fadeIn();
+  });
+
+  $(document).on("click", ".glyphicon-ok", function(){
+    $(this).css("color", "green");
+    var currentTask = $(this).parent();
+    var todoId = $(this).parent().attr("id");
+    var description = $(this).parent().text();
     $.ajax({
-      url: "http://recruiting-api.nextcapital.com/users/" + sessionStorage.userId + "/todos",
-      type: "POST",
+      url: "http://recruiting-api.nextcapital.com/users/" + sessionStorage.userId + "/todos/" + todoId,
+      type: "PUT",
       dataType: "json",
-      data: { api_token: sessionStorage.token, todo: { description: description } },
-      success: function(todo) {
-        addToList(todo);
-        emptyInput(todo);
-        hideTasks();
+      data: { api_token: sessionStorage.token, todo: { description: description, is_complete: true} },
+      success: function(todo){
+        currentTask.remove();
+        showCompleted();
+        addToCompleted(todo);
       }
     });
   });
-
-  // $(document).on('dblclick', '#todo-list li', function() {
-  //   var editButton = $("<input id='todo-edit' type='submit' value='Edit'/>")
-  //   $(this).append(editButton);
-  // });
   
  $(function() {
     $( "#todo-list" ).sortable();
     $( "#todo-list" ).disableSelection();
   });
 
+  $(".list").mouseover(function(){
+    $(this).css("cursor", "default");
+  });
+
   $("#sign-out-button").click(function(event){
     event.preventDefault();
     $("#sign-in").show();
     hideTodos();
+    hideSignOut();
     $.ajax({
       url: "http://recruiting-api.nextcapital.com/users/sign_out",
       type: "DELETE",
-      dataType: "json",
       data: { user_id: sessionStorage.userId, api_token: sessionStorage.token }
     });
+    location.reload();
   });
 });
-
-
-
-
-
-
-
-
-
-
-
 
 
