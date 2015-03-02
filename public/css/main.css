@@ -1,0 +1,68 @@
+.jumbotron {
+  background-color: #bfd4ff;
+}
+
+h1, 
+#todos h2,
+#tasks {
+  text-align: center;
+}
+
+#sign-in-form,
+#new-to-site,
+#sign-up-form {
+  text-align: center;
+}
+
+#sign-out-button {
+  margin-top: -40px;
+
+}
+
+#sign-in-button,
+#sign-up-button,
+#sign-out-button {
+  border-radius: 3px;
+  background-color: #7c7c89;
+  border: none;
+}
+
+a {
+  color: #000;
+}
+
+a:hover {
+  color: #7c7c89;
+}
+
+li {
+  list-style: none;
+  text-align: left;
+  font-size: 22px;
+  /*height: 28px;*/
+}
+
+.glyphicon-edit {
+  float: right;
+  font-size: 22px;
+}
+
+.glyphicon-edit:hover {
+  color: purple;
+}
+
+.glyphicon-ok {
+  float:right;
+  padding-left: 5px;
+  color: gray;
+}
+
+/*#todos {
+  background-color: #bce6dd;
+}*/
+
+#todos p {
+  font-size: 14px;
+}
+
+
