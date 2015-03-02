@@ -9,17 +9,15 @@ $(document).ready(function(){
   var startSession = function(data){
     sessionStorage.setItem("userId", data.id); 
     sessionStorage.setItem("token", data.api_token);
-    hideSignIn();
-    hideSignUp();
-    showSignOut();
+    hideLanding();
     showTodos();
     getTodos()
     showTasks();
-    showCompleted();
+    $(".header").show();
   };
 
-  var hideSignIn = function(){
-    $("#sign-in").hide();
+  var hideLanding = function() {
+    $("#landing").hide();
   };
 
   var hideSignUp = function(){
@@ -55,28 +53,15 @@ $(document).ready(function(){
     $("#tasks").show();
   }
 
-  var hideCompleted = function() {
-    $("#completed-list-div").hide();
-  };
-
-  var showCompleted = function() {
-    $("#completed-list-div").show();
-  };
-
   var addToList = function(todo){
-    $("#todo-list").append("<li id='" + todo.id + "'>" + todo.description + "<span class='glyphicon glyphicon-ok'></span><span class='glyphicon glyphicon-edit'></span></li>");
+    $("#todo-list").append("<li id='" + todo.id + "'>" + todo.description + "<span class='glyphicon glyphicon-ok'></span></li>");
   };
 
-  var addToCompleted = function(todo){
-    $("#completed-list").append("<li id='" + todo.id + "'>" + todo.description + "</li>");
-  };
-
+  $(".header").hide();
   hideSignUp();
-  hideSignOut();
   hideTodos();
   hideTasks();
-  hideCompleted();
-
+  
   $("#sign-in").submit(function(event){
     event.preventDefault();
     var email = document.getElementById("sign-in-email").value
@@ -95,7 +80,8 @@ $(document).ready(function(){
         $("#sign-in-form").prepend("<p>Invalid email or password</p>");
       }
     });
-    $("sign-in-form p").empty();
+    $("#sign-in-form p").empty();
+    
   });
 
   $("#new-to-site").click(function(event){
@@ -117,6 +103,7 @@ $(document).ready(function(){
           startSession(data);
         },
         error: function(data){
+          emptyInput();
           $("#sign-up-form").prepend("<p>Invalid email or password.<p>");
         }
       });
@@ -133,8 +120,6 @@ $(document).ready(function(){
             if (todo.isComplete === false) {
               addToList(todo);
             }
-            else
-              addToCompleted(todo);
           }
         }
       });
@@ -157,14 +142,10 @@ $(document).ready(function(){
     }
   });
 
-  $(document).on("click", ".glyphicon-edit", function(){
-    var currentText = $(this).parent().text();
-    var editForm = ("<form id='edit-form'><input id='edit-description' type='text' value=" + currentText + "></form>");
-    var updatedTodo = $(this).parent().replaceWith(editForm).fadeIn();
-  });
-
   $(document).on("click", ".glyphicon-ok", function(){
-    $(this).css("color", "green");
+    $(this).css("color", "#660066");
+    $(this).fadeOut();
+    var checkmark = $(this);
     var currentTask = $(this).parent();
     var todoId = $(this).parent().attr("id");
     var description = $(this).parent().text();
@@ -174,9 +155,9 @@ $(document).ready(function(){
       dataType: "json",
       data: { api_token: sessionStorage.token, todo: { description: description, is_complete: true} },
       success: function(todo){
-        currentTask.remove();
-        showCompleted();
-        addToCompleted(todo);
+        currentTask.css("text-decoration", "line-through");
+        checkmark.remove();
+        $("#todo-list").append(currentTask);
       }
     });
   });
@@ -203,5 +184,3 @@ $(document).ready(function(){
     location.reload();
   });
 });
-
-

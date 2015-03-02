@@ -13,12 +13,18 @@
 
   <body>
     <div class="container">
-      <div class="jumbotron">
 
-        <div class="header">
+      <div class="header">
+        <nav>
+          <h2>Tasking</h2>
+          <input class="btn pull-right" id="sign-out-button" type="submit" value="Sign Out">
+        </nav>
+      </div>
 
-          <h1>Todo</h1>
-          <input class="nav nav-pills pull-right" id="sign-out-button" type="submit" value="Sign Out">
+      <div id="landing" class="jumbotron">
+        <h1>Tasking</h1>
+        <p class="lead">Make your list. Get things done.</p>
+        <br>
           <div id="sign-in">
             <form id="sign-in-form">
               <input id="sign-in-email" type="text" name="email" placeholder="Email">
@@ -27,12 +33,7 @@
             </form>
             <br>
             <p id="new-to-site"><a href="">Need to sign up?</a></p>
-            
-         
           </div>
-        </div>
-      
-
         <div id="sign-up">
           <form id="sign-up-form">
             <input id="sign-up-email" type="text" name="email" placeholder="Email">
@@ -40,25 +41,18 @@
             <input id="sign-up-button" type="submit" value="Sign Up">
           </form>
         </div>
-
-        <div id="todos">
-
-          <form id="tasks">
-            <input id="add-task" type="text" name="new-task" placeholder="Add a new task...">
-          </form>
-          
-          <div id="todo-list-div">
-            <ul id="todo-list" class="list"></ul>
-          </div>
-
-          <div id="completed-list-div">
-            <h2>I'm all done with these!</h2>
-            <ul id="completed-list" class="list"></ul>
-          </div>
-        </div>
+      </div>
+      
+      <div id="todos" class="jumbotron">
+        <h2>My List</h2>
+        <br>
+        <p>Add items to your list. Sort list by clicking and dragging items. Click the checkmark to mark an item as complete.</p>
+        <form id="tasks">
+          <input id="add-task" type="text" name="new-task" placeholder="Add a new task...">
+        </form>
+        <ul id="todo-list" class="list"></ul>
       </div>
 
     </div>
-    
   </body>
 </html>
