@@ -67,7 +67,7 @@ $(document).ready(function(){
     var email = document.getElementById("sign-in-email").value
     var password = document.getElementById("sign-in-password").value
     $.ajax({
-      url: "http://recruiting-api.nextcapital.com/users/sign_in",
+      url: "https://recruiting-api.nextcapital.com/users/sign_in",
       type: "POST",
       dataType: "json",
       data: {email: email, password: password},
