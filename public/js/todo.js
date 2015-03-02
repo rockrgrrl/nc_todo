@@ -67,7 +67,7 @@ $(document).ready(function(){
     var email = document.getElementById("sign-in-email").value
     var password = document.getElementById("sign-in-password").value
     $.ajax({
-      url: "https://recruiting-api.nextcapital.com/users/sign_in",
+      url: "//recruiting-api.nextcapital.com/users/sign_in",
       type: "POST",
       dataType: "json",
       data: {email: email, password: password},
@@ -94,7 +94,7 @@ $(document).ready(function(){
       var email = document.getElementById("sign-up-email").value
       var password = document.getElementById("sign-up-password").value
       $.ajax({
-        url: "http://recruiting-api.nextcapital.com/users",
+        url: "//recruiting-api.nextcapital.com/users",
         type: "POST",
         dataType: "json",
         data: {email: email, password: password},
@@ -112,7 +112,7 @@ $(document).ready(function(){
 
     var getTodos = function(){
       $.ajax({
-        url: "http://recruiting-api.nextcapital.com/users/" + sessionStorage.userId + "/todos.json?api_token=" + sessionStorage.token,
+        url: "//recruiting-api.nextcapital.com/users/" + sessionStorage.userId + "/todos.json?api_token=" + sessionStorage.token,
         type: "GET",
         success: function(data) {
           for (i = 0; i < data.length; i++) {
@@ -130,7 +130,7 @@ $(document).ready(function(){
     var description = $("#tasks input[name=new-task]").val()
     if (description != "") {
       $.ajax({
-        url: "http://recruiting-api.nextcapital.com/users/" + sessionStorage.userId + "/todos",
+        url: "//recruiting-api.nextcapital.com/users/" + sessionStorage.userId + "/todos",
         type: "POST",
         dataType: "json",
         data: { api_token: sessionStorage.token, todo: { description: description } },
@@ -150,7 +150,7 @@ $(document).ready(function(){
     var todoId = $(this).parent().attr("id");
     var description = $(this).parent().text();
     $.ajax({
-      url: "http://recruiting-api.nextcapital.com/users/" + sessionStorage.userId + "/todos/" + todoId,
+      url: "//recruiting-api.nextcapital.com/users/" + sessionStorage.userId + "/todos/" + todoId,
       type: "PUT",
       dataType: "json",
       data: { api_token: sessionStorage.token, todo: { description: description, is_complete: true} },
@@ -177,7 +177,7 @@ $(document).ready(function(){
     hideTodos();
     hideSignOut();
     $.ajax({
-      url: "http://recruiting-api.nextcapital.com/users/sign_out",
+      url: "//recruiting-api.nextcapital.com/users/sign_out",
       type: "DELETE",
       data: { user_id: sessionStorage.userId, api_token: sessionStorage.token }
     });
