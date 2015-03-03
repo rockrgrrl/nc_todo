@@ -39,16 +39,6 @@ li {
   list-style: none;
   text-align: left;
   font-size: 22px;
-  /*height: 28px;*/
-}
-
-.glyphicon-edit {
-  float: right;
-  font-size: 22px;
-}
-
-.glyphicon-edit:hover {
-  color: purple;
 }
 
 .glyphicon-ok {
@@ -56,10 +46,6 @@ li {
   padding-left: 5px;
   color: gray;
 }
-
-/*#todos {
-  background-color: #bce6dd;
-}*/
 
 #todos p {
   font-size: 14px;
