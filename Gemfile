@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 gem 'rack'
-gem 'the rubyracer'
+gem 'therubyracer'
 gem 'less-rails'
