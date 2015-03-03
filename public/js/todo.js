@@ -54,7 +54,7 @@ $(document).ready(function(){
   }
 
   var addToList = function(todo){
-    $("#todo-list").append("<li id='" + todo.id + "'>" + todo.description + "<span class='glyphicon glyphicon-ok'></span></li>");
+    $("#todo-list").prepend("<li id='" + todo.id + "'>" + todo.description + "</li>");
   };
 
   $(".header").hide();
@@ -142,13 +142,10 @@ $(document).ready(function(){
     }
   });
 
-  $(document).on("click", ".glyphicon-ok", function(){
-    $(this).css("color", "#660066");
-    $(this).fadeOut();
-    var checkmark = $(this);
-    var currentTask = $(this).parent();
-    var todoId = $(this).parent().attr("id");
-    var description = $(this).parent().text();
+  $(document).on("dblclick", "#todo-list li", function(){
+    var currentTask = $(this);
+    var todoId = $(this).attr("id");
+    var description = $(this).text();
     $.ajax({
       url: "http://recruiting-api.nextcapital.com/users/" + sessionStorage.userId + "/todos/" + todoId,
       type: "PUT",
@@ -156,7 +153,6 @@ $(document).ready(function(){
       data: { api_token: sessionStorage.token, todo: { description: description, is_complete: true} },
       success: function(todo){
         currentTask.css("text-decoration", "line-through");
-        checkmark.remove();
         $("#todo-list").append(currentTask);
       }
     });
